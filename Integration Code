@@ -1,17 +1,21 @@
-# ELDORADO integration code transforms outputs from Maiso SET Pulse-Oximetery and Edwards Clearsight to give real-time delivery of oxygen output. 
-# Copyright (C) 2023  <name of author>
+# ELDORADO integration code transforms outputs from Maiso SET Pulse-Oximetery and Edwards Clearsight to give real-time delivery of oxygen (DO2) output. 
+# Copyright (C) 2023  <Sophia Chew Tsong Huey>
 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+# as published by # the Free Software Foundation, either version 3 of the License, or any later version, whichever later.
 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful, # but WITHOUT ANY WARRANTY; 
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+# See the GNU General Public License for more details.
 
-#   You should have received a copy of the GNU General Public License
-#   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+# Permission from the author is required for any non-commercial and commercial use of the code, whether in part or in whole.
+# Permission can be obtained from 
+#   A/Prof Sophia Chew Tsong Huey
+#   Email address: sophia.chew.t.h@singhealth.com.sg
+
 
 
 # Creation of CSV file for integrated DO2 values for each patient
