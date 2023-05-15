@@ -1,4 +1,4 @@
-# ELDORADO integration code transforms outputs from Maiso SET Pulse-Oximetery and Edwards Clear to give real-time delivery of oxygen output. 
+# ELDORADO integration code transforms outputs from Maiso SET Pulse-Oximetery and Edwards Clearsight to give real-time delivery of oxygen output. 
 # Copyright (C) 2023  <name of author>
 
 # This program is free software: you can redistribute it and/or modify
