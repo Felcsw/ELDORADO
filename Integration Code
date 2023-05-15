@@ -1,0 +1,56 @@
+# ELDORADO integration code transforms outputs from Maiso SET Pulse-Oximetery and Edwards Clear to give real-time delivery of oxygen output. 
+# Copyright (C) 2023  <name of author>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+# Creation of CSV file for integrated DO2 values for each patient
+import csv
+
+# Importing data from Edwards ClearSight Monitor and Masimo SET Pulse Co-oximetry Monitor
+import time
+from datetime import datetime
+import threading
+import numpy as np
+from Extract_Masimo import datalst_m # Masimo output data, including SPO2, SPHb
+from Extract_Masimo import draw_SPO2 # SPO2
+from Extract_Edwards import datalst_e # Edwards output data, including cardiac output(CO)
+
+# Integrating data from Edwards ClearSight Monitor and Masimo SET Pulse Co-oximetry Monitor using oxygen flux equation
+# and creating the CSV file with integrated DO2 values for each patient
+def plotter():
+    filename = "DO2" + name.get() + ".csv"
+    global continuePlotting
+    while continuePlotting:  # Graph updates if continue Plotting Boolean is True
+        ax.cla()
+        ax.grid()
+        dpts_m = datalst_m()  # Extract data points in a list from Extract_Masimo function
+        dpts_e = datalst_e()  # Extract data points in a list from Extract_Edwards function
+        dpts = np.multiply(dpts_e, dpts_m)  # multiply both data
+     
+        # Formula for DO2 = CO (L/min) * SpHb (g/dL) * SPO2 (in decimal) * 1.34
+        # Use DO2 formula here: multiply by 1.34 as
+        dpts = dpts * 1.34
+        spo2 = draw_SPO2()
+        dpts = np.rint(np.multiply(dpts, spo2/100)) # Convert SpO2 from % to decimal
+ 
+        with open(filename, 'a') as csvfile:
+            fieldnames = ["DATETIME", "DO2", "SpHb", "SpO2", "CO"]
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            now = datetime.now()
+            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+            writer.writerow({"DATETIME":dt_string, "DO2":dpts[0], "SpHb":dpts_m[0], "SpO2": spo2, "CO": dpts_e[0]})
+        updateDepositLabel(str(dpts[0]), str(dpts_m[0]), str(spo2), str(dpts_e[0]))
+        j = len(dpts)
+        ax.plot(range(j), dpts, marker='o', color='orange')
+        graph.draw()  # draw graph
